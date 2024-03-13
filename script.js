@@ -75,4 +75,5 @@ function playGame() {
     console.log("not an option")
     round++
 }
+
 checkWin()
