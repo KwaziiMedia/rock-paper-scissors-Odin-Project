@@ -34,7 +34,15 @@ function computerSelection() {
 
 function addResetBtn () {
     let restartBtn = document.createElement("BUTTON")
-    restartBtn.textContent = " Restart Button"
+    restartBtn.textContent = "Restart"
+    restartBtn.style.width = "5rem"
+    restartBtn.style.height = "3rem"
+    restartBtn.style.fontSize = "7rem"
+    restartBtn.style.marginLeft = "2rem"
+    restartBtn.style.width = "fit-content"
+    restartBtn.style.height = "fit-content"
+    restartBtn.style.flex = "display"
+    restartBtn.style.justifyContent = "center"
     winPara.appendChild(restartBtn)
     restartBtn.addEventListener("click", function(){
         resetGame()
@@ -53,11 +61,6 @@ function resetGame (){
     playerScore.textContent = `Player Score: ${pScore}`
     computerScore.textContent = `Computer Score: ${cScore}`
     enableBtn()
-    console.log(pScore)
-    console.log(cScore)
-    console.log(tScore)
-    console.log(winHeader.textContent)
-    console.log(winPara.textContent)
 }
 function disableBtn () {
     rock.disabled = true
@@ -91,7 +94,7 @@ function checkWin(){
 function playGame(playerSelection){
     let computerChoice = computerSelection()
     if(playerSelection === "rock" && computerChoice === "rock" || playerSelection === "paper" && computerChoice === "paper" || playerSelection === "scissors" && computerChoice === "scissors"){
-        winHeader.textContent = "Tie Womp Womp"
+        winHeader.textContent = "Tie"
         winPara.textContent = `${playerSelection} and ${computerChoice}`
         computerImg.src = `/images/${computerChoice}.png`
         tScore++
@@ -125,7 +128,7 @@ function playGame(playerSelection){
         winPara.textContent = `${computerChoice} beats ${playerSelection}`
         computerImg.src = `/images/${computerChoice}.png`
         computerScore.textContent = `Computer Score: ${cScore}`
-    }else if (computerScore === "scissors" && playerSelection === "paper"){
+    }else if (computerChoice === "scissors" && playerSelection === "paper"){
         cScore++
         winHeader.textContent = "Computer Wins"
         winPara.textContent = `${computerChoice} beats ${playerSelection}`

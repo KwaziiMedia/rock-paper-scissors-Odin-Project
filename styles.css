@@ -1,0 +1,82 @@
+.container{
+    display: flex;
+    flex-direction: column;
+}
+.game-status{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+}
+.win-header{
+    text-align: center;
+    font-size: 8rem;
+    margin-bottom: 10px;
+}
+.win-para{
+    text-align: center;
+    font-size: 7rem;
+}
+.game-container{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 5rem;
+    margin-bottom: 3rem;
+}
+.player-container{
+    display: flex;
+    flex-direction: column;
+}
+.playerImg{
+    width: 35rem;
+    height: 30rem;
+}
+.player-score{
+    margin: 2rem;
+    text-align: center;
+    font-size: 5rem;
+}
+.vs-para{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 12rem;
+    color: black;
+}
+.computer-container{
+    display: flex;
+    justify-content: column;
+}
+.computerImg{
+    width: 35rem;
+    height: 30rem;
+}
+.computer-score{
+    margin: 2rem;
+    text-align: center;
+    font-size: 5rem;
+}
+.btn-container{
+    margin: 8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8rem;
+    
+}
+.rockBtn{
+    width: 15rem;
+    height: 6rem;
+    font-size: 5rem;
+}
+.paperBtn{
+    width: 15rem;
+    height: 6rem;
+    font-size: 5rem;
+}
+.scissorsBtn{
+    width: 15rem;
+    height: 6rem;
+    font-size: 5rem;
+}
