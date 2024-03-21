@@ -1,79 +1,137 @@
-//Get Computer Choice Function that randomly gets a chooses something form array
-function getComputerChoice() {
-    let random = Math.floor(Math.random() *choices.length) 
-    return choices[random].toLowerCase()
-}
-//choices
-const choices = [
-    "Rock",
-    "Paper",
-    "Scissors"
-]
-//check winner function
-function checkWin() {
-    if(userScore === 3){
-        userScore = 0
-        computerScore = 0
-        tieScore = 0
-        console.log("User Wins Game Over")
+const rock = document.querySelector(".rockBtn")
+const paper = document.querySelector(".paperBtn")
+const scissors = document.querySelector(".scissorsBtn")
+const playerImg = document.querySelector(".playerImg")
+const computerImg = document.querySelector(".computerImg")
+const winHeader = document.querySelector(".win-header")
+const winPara = document.querySelector(".win-para")
+const playerScore = document.querySelector(".player-score")
+const computerScore = document.querySelector(".computer-score")
+let cScore = 0;
+let pScore = 0;
+let tScore = 0;
+//player selection
+rock.addEventListener("click", function() {
+    playerImg.src="/images/rock.png"
+    playGame("rock")
+})
+paper.addEventListener("click", function() {
+    playerImg.src="/images/paper.png"
+    playGame("paper")
+})
+scissors.addEventListener("click", function() {
+    playerImg.src="/images/scissors.png"
+    playGame("scissors")
+})
 
-    }else if (computerScore === 3){
-        userScore = 0
-        computerScore = 0
-        tieScore = 0
-        console.log("Computer Wins Game Over")
-    }else if (tieScore === 3){
-        userScore = 0
-        computerScore = 0
-        tieScore = 0
-        console.log("Tie No Winner Try Again")
-    } 
-}
-
-//Scores 
-    let userScore = 0
-    let computerScore = 0
-    let tieScore = 0
-    let round = 0
-    while(userScore < 3 && computerScore < 3 && round < 12){
-        playGame()
-     }
-//function to play game 
-function playGame() {
-    let userChoice = prompt("What will you choose Rock Paper or Scissors?").toLowerCase()
-    let computerChoice = getComputerChoice();
-
-    if(userChoice == "rock" && computerChoice == "paper"){
-        computerScore++
-        console.log(`${computerChoice} beats ${userChoice} Computer Wins`) 
-    }else if(userChoice == "rock" && computerChoice == "scissors"){
-        userScore++
-        console.log(`${userChoice} beats ${computerChoice} User Wins`)
-    }else if(userChoice == "rock" && computerChoice == "rock"){
-        tieScore++
-        console.log("its a tie")
-    }else if (userChoice == "paper" && computerChoice == "paper"){
-        tieScore++
-        console.log("it's a tie")
-    }else if(userChoice == "paper" && computerChoice == "rock"){
-        userScore++
-        console.log(`${userChoice} beats ${computerChoice} User Wins`);
-    }else if (userChoice == "paper" && computerChoice == "scissors"){
-        computerScore++
-        console.log(`${computerChoice} beats ${userChoice} Computer Wins`)
-    }else if(userChoice == "scissors" && computerChoice == "scissors"){
-        tieScore++
-        console.log("it's a tie")
-    }else if(userChoice == "scissors" && computerChoice == "rock"){
-        computerScore++
-        
-        console.log(`${computerChoice} beats ${userChoice} Computer Wins`)
-    }else if (userChoice == "scissors" && computerChoice == "paper"){
-        userScore++
-        console.log(`${userChoice} beats ${computerChoice} user wins`)
-    }else 
-    console.log("not an option")
-    round++
+//computer Selction and choices array
+const choices = ["rock", "paper", "scissors"]
+function computerSelection() {  
+    let random = Math.floor(Math.random() * choices.length)
+    return choices[random]
 }
 
-checkWin()
+
+function addResetBtn () {
+    let restartBtn = document.createElement("BUTTON")
+    restartBtn.textContent = " Restart Button"
+    winPara.appendChild(restartBtn)
+    restartBtn.addEventListener("click", function(){
+        resetGame()
+        enableBtn()
+    })
+}
+
+function resetGame (){
+    cScore = 0
+    pScore = 0
+    tScore = 0
+    winHeader.textContent = "Player Pick A Weapon"
+    winPara.textContent = "What will you choose?"
+    playerImg.src = "images/question-mark.jpg"
+    computerImg.src = "images/question-mark.jpg"
+    playerScore.textContent = `Player Score: ${pScore}`
+    computerScore.textContent = `Computer Score: ${cScore}`
+    enableBtn()
+    console.log(pScore)
+    console.log(cScore)
+    console.log(tScore)
+    console.log(winHeader.textContent)
+    console.log(winPara.textContent)
+}
+function disableBtn () {
+    rock.disabled = true
+    paper.disabled = true
+    scissors.disabled = true
+}
+function enableBtn() {
+    rock.disabled = false
+    paper.disabled = false
+    scissors.disabled = false
+}
+function checkWin(){
+    if(pScore === 5){
+        winHeader.textContent =  "Player Wins Computer Loses"
+        winPara.textContent = "Want to play again?"
+        disableBtn()
+        addResetBtn()
+    }else if(cScore === 5){
+        winHeader.textContent = "Computer Wins Player Loses"
+        winPara.textContent = "Want to Play Again?"
+        disableBtn()
+        addResetBtn()
+    }else if (tScore === 12){
+        winHeader.textContent = "Its a Tie Womp Womp"
+        winPara.textContent = "Want to Play Again?"
+        disableBtn()
+        addResetBtn()
+    }
+}
+
+function playGame(playerSelection){
+    let computerChoice = computerSelection()
+    if(playerSelection === "rock" && computerChoice === "rock" || playerSelection === "paper" && computerChoice === "paper" || playerSelection === "scissors" && computerChoice === "scissors"){
+        winHeader.textContent = "Tie Womp Womp"
+        winPara.textContent = `${playerSelection} and ${computerChoice}`
+        computerImg.src = `/images/${computerChoice}.png`
+        tScore++
+    }else if (playerSelection === "rock" && computerChoice === "scissors"){
+        pScore++
+        winHeader.textContent = "Player Wins"
+        winPara.textContent = `${playerSelection} beats ${computerChoice}`
+        computerImg.src = `/images/${computerChoice}.png`
+        playerScore.textContent = `Player Score: ${pScore}`
+    }else if (playerSelection === "paper" && computerChoice === "rock"){
+        pScore++
+        winHeader.textContent = "Player Wins"
+        winPara.textContent = `${playerSelection} beats ${computerChoice}`
+        computerImg.src = `/images/${computerChoice}.png`
+        playerScore.textContent = `Player Score: ${pScore}`
+    }else if (playerSelection === "scissors" && computerChoice === "paper"){
+        pScore++
+        winHeader.textContent = "Player Wins"
+        winPara.textContent = `${playerSelection} beats ${computerChoice}`
+        computerImg.src = `/images/${computerChoice}.png`
+        playerScore.textContent = `Player Score: ${pScore}`
+    }else if (computerChoice === "rock" && playerSelection === "scissors"){
+        cScore++
+        winHeader.textContent = "Computer Wins"
+        winPara.textContent = `${computerChoice} beats ${playerSelection}`
+        computerImg.src = `/images/${computerChoice}.png`
+        computerScore.textContent = `Computer Score: ${cScore}`
+    }else if (computerChoice === "paper" && playerSelection === "rock"){
+        cScore++
+        winHeader.textContent = "Computer Wins"
+        winPara.textContent = `${computerChoice} beats ${playerSelection}`
+        computerImg.src = `/images/${computerChoice}.png`
+        computerScore.textContent = `Computer Score: ${cScore}`
+    }else if (computerScore === "scissors" && playerSelection === "paper"){
+        cScore++
+        winHeader.textContent = "Computer Wins"
+        winPara.textContent = `${computerChoice} beats ${playerSelection}`
+        computerImg.src = `/images/${computerChoice}.png`
+        computerScore.textContent = `Computer Score: ${cScore}`
+    }
+    checkWin()
+}
+
